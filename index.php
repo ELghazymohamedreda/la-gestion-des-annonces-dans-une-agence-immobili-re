@@ -40,12 +40,11 @@ if (isset($_POST['submit'])) {
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>LUXIOR</title>
+  <title>Wanheda</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -103,7 +102,7 @@ if (isset($_POST['submit'])) {
           </div>
         </div>
         <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200" id="img">
-          <img src="pngegg (5).png" class="img-fluid animated" alt="">
+          <img src="img/pngegg (5).png" class="img-fluid animated" alt="">
         </div>
       </div>
     </div>

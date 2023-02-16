@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>LUXIOR</title>
+  <title>WANHEDA</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -34,12 +34,12 @@
   <!-- ======= Header ======= -->
   <header id="header" class="fixed-top ">
     <div class="container d-flex align-items-center">
-      <h1 class="logo me-auto"><a href="index.html">LUXIOR</a></h1>
+      <h1 class="logo me-auto"><a href="index.php">WANHEDA</a></h1>
       <nav id="navbar" class="navbar">
         <ul>
           <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
           <li><a class="nav-link scrollto" href="#services">Services</a></li>
-          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+          <li><a class="nav-link scrollto" href="#footer">Contact</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav>
@@ -259,13 +259,13 @@
           <div class="row">
 
             <div class="col-lg-3 col-md-6 footer-contact">
-              <h3>Arsha</h3>
+              <h3>WANHEDA</h3>
               <p>
                 Revenue Calefornia<br>
                 Tanger, 90000<br>
                 Morrocco <br><br>
                 <strong>Phone:</strong> +212800012121<br>
-                <strong>Email:</strong> Luxior@gmail.com<br>
+                <strong>Email:</strong> Wanheda@gmail.com<br>
               </p>
             </div>
 
