@@ -1,0 +1,208 @@
+#cards img{
+    width: 30vw;
+    height: 100%;
+}
+
+#modal{
+    display: flex;
+}
+
+#infoModal{
+    margin-left: 5%;
+}
+
+#infoModal h5{
+    margin-top: 10% ;
+    font-family: sans-serif;
+
+}
+
+#titlee h2{
+    color: #000 !important;
+}
+#infoModal button{
+    margin-top: 10% ;
+    margin-bottom: 5%;
+    margin-left: 45%;
+    background-color: #47B2E4;
+    border: none;
+}
+
+#infoModal button:hover{
+    background-color: #a2e2ff;
+    color: #000;
+    border: none;
+}
+
+
+
+
+
+#infoModal p{
+    margin-top: 20%;
+    font-family: sans-serif;
+}
+
+#infoModal span{
+    font-weight: bold;
+    color: black;
+}
+
+#bodyCard p span{
+    font-weight: bold !important;
+    color: black !important;
+
+}
+#bodyCard p{
+    font-family: sans-serif;
+}
+
+#cards{
+    width: 70vw;
+    display: flex;
+    margin-bottom: 3% !important;
+    margin-left: 15% !important;
+}
+
+#modBtn form{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+#modBtn input{
+    background-color: #47B2E4;
+    border: none;
+    padding: 2%;
+    border-radius: 10px;
+    width: 10vw;
+    color: #fff;
+}
+#warning h1{
+    color: #E9640D !important;
+    padding: 1%;
+    margin-left: 26%;
+}
+
+#warning div{
+    border-bottom: 3px solid #000;
+}
+
+#warning h5{
+    margin-top: 2%;
+    margin-left: 10% !important;
+    font-weight: bold;
+    font-size: 0.8em;
+}
+
+
+
+#close button{
+    background-color: #E9640D;
+    border: none;
+    padding: 2%;
+    border-radius: 10px;
+    width: 100%;
+}
+#warning form{
+    display: flex;
+    justify-content: space-around;
+}
+#warning{
+    display: none;
+}
+
+#warning form input{
+    background-color: #47B2E4;
+    border: none;
+    padding: 2%;
+    border-radius: 10px;
+    color: #fff;
+    margin-top: 3%;
+    width: 10vw;
+}
+
+#update{
+    background-color: #47B2E4;
+}
+
+#pictures{
+    margin-top: -30%;
+    margin-left: 10%;
+}
+
+#modalBody img{
+    width: 100%;
+}
+
+#titreInfo h3{
+    margin-left: 42%;
+}
+#titreAnnonce h2{
+ color: #000 !important;
+}
+
+#submitBtn{
+    background-color: #47B2E4;
+    border: none;
+    border-radius: 10px;
+    padding: 1%;
+    width: 100%;
+}
+
+#titreInfo form label{
+    font-weight: bold;
+    color: #000;
+}
+
+#skills{
+    margin-top: -15% !important;
+}
+
+.modbuttons{
+    background-color: #47B2E4;
+    border: none;
+    border-radius: 10px;
+    padding: 2%;
+    color: #fff;
+}
+
+
+
+
+
+
+
+@media screen and (min-width: 300px) and (max-width: 500px) {
+    #cards img{
+        width: 100% !important;
+        height: 60% !important;
+    }
+    #modal{
+        display: flex;
+        flex-direction: column;
+    }
+    .modbuttons{
+        font-size: 0.8em !important;
+    }
+    .btnmod{
+        margin-right: 32% !important;
+        margin-bottom: 2%;
+    }
+    #img img{
+        display: none;
+    }
+    #pictures{
+        margin: 0 !important;
+    }
+    #titleInfo{
+        margin-right: 65% !important;
+    }
+    #titreInfo h3{
+        font-size: 1em !important;
+    }
+    #pictures img{
+        width: 100% !important;
+        height: 50% !important;
+    }
+    
+  }
