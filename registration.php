@@ -7,13 +7,13 @@
 </head>
 <body>
 <?php
-    $con = mysqli_connect('localhost', 'Root', '', 'agence');
-    // require('db.php');
-    // When form submitted, insert values into the database.
+    // $con = mysqli_connect('localhost', 'Root', '', 'agence');
+    require('db.php');
+    // Une fois le formulaire soumis, insérez les valeurs dans la base de données.
     if (isset($_REQUEST['username'])) {
-        // removes backslashes
+        // supprime les barres obliques inverses
         $username = stripslashes($_REQUEST['username']);
-        //escapes special characters in a string
+        //échappe les caractères spéciaux dans une chaîne
         $username = mysqli_real_escape_string($con, $username);
         $email    = stripslashes($_REQUEST['email']);
         $email    = mysqli_real_escape_string($con, $email);
@@ -47,5 +47,6 @@
 <?php
     }
 ?>
+
 </body>
 </html>

@@ -1,8 +1,15 @@
 <?php
+
+//include auth_session.php file on all user panel pages
+include("auth_session.php");
+echo $_SESSION['username'];
+?>
+<?php
 $msg = "";
 if (isset($_POST['submit'])) {
   $con = mysqli_connect('localhost', 'Root', '', 'agence');
   if ($con) {
+    // $id = $_POST['id'];
     $titre = $_POST['titre'];
     $description = $_POST['description'];
     $superficie = $_POST['superficie'];
@@ -10,16 +17,16 @@ if (isset($_POST['submit'])) {
     $montant = $_POST['montant'];
     $date = $_POST['date'];
     $type_annonce = $_POST['type_annonce'];
-
+    
     $image = $_FILES['image']['name'];
     $tmp_name = $_FILES['image']['tmp_name'];
     $folder = "assets/img/" . $image;
     move_uploaded_file($tmp_name, $folder);
 
     if ($titre != "" && $image != "" && $description != "" && $superficie != "" && $adresse != "" && $montant != "" && $date != "" && $type_annonce != "") {
-      $sql = "insert into annonces(titre,images,description,superficie,adresse,montant,date,type_annonce)values('$titre','$folder','$description','$superficie','$adresse','$montant','$date','$type_annonce')";
-
-      $query = mysqli_query($con, $sql);
+      // $sql = "insert into annonces(titre,images,description,superficie,adresse,montant,date,type_annonce)values('$titre','$folder','$description','$superficie','$adresse','$montant','$date','$type_annonce')";
+      $sql ="INSERT INTO `annonces` (`id`, `titre`, `description`, `superficie`, `adresse`, `montant`, `date`, `type_annonce`, `images`, `User_id`) VALUES (NULL, '$titre', '$description', '$superficie', '$adresse', '$montant', '$date', '$type_annonce', '$folder', '4' )";
+      $query = mysqli_query($con, $sql); 
       header("Location: " . $_SERVER['PHP_SELF']);
       exit;
       if ($query) {
@@ -377,6 +384,7 @@ if (isset($_POST['submit'])) {
                         </div>
 
                         <form class="px-md-2" action="index.php" method="post" enctype="multipart/form-data">
+                          <!-- <input type="text" name="hidden_id" id="my_hidden_id" value=""/> -->
                           <div class="form-outline mb-4">
                             <label class="form-label" for="form1Example1q">Titre</label>
                             <input type="text" id="form1Example1q" class="form-control" name="titre" />
@@ -600,6 +608,7 @@ if (isset($_POST['submit'])) {
     <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
     <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
     <script src="assets/vendor/php-email-form/validate.js"></script>
+    
 
     <!-- Template Main JS File -->
     <script src="assets/js/main.js"></script>
