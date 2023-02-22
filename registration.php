@@ -1,52 +1,113 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8"/>
-    <title>Registration</title>
-    <link rel="stylesheet" href="css/custum.css">
-</head>
-<body>
 <?php
-    // $con = mysqli_connect('localhost', 'Root', '', 'agence');
-    require('db.php');
-    // Une fois le formulaire soumis, insérez les valeurs dans la base de données.
-    if (isset($_REQUEST['username'])) {
-        // supprime les barres obliques inverses
-        $username = stripslashes($_REQUEST['username']);
-        //échappe les caractères spéciaux dans une chaîne
-        $username = mysqli_real_escape_string($con, $username);
-        $email    = stripslashes($_REQUEST['email']);
-        $email    = mysqli_real_escape_string($con, $email);
-        $password = stripslashes($_REQUEST['password']);
-        $password = mysqli_real_escape_string($con, $password);
-        $create_datetime = date("Y-m-d H:i:s");
-        $query    = "INSERT into `users` (username, password, email, create_datetime)
-                     VALUES ('$username', '" . md5($password) . "', '$email', '$create_datetime')";
-        $result   = mysqli_query($con, $query);
-        if ($result) {
-            echo "<div class='form'>
-                  <h3>You are registered successfully.</h3><br/>
-                  <p class='link'>Click here to <a href='login.php'>Login</a></p>
-                  </div>";
-        } else {
-            echo "<div class='form'>
-                  <h3>Required fields are missing.</h3><br/>
-                  <p class='link'>Click here to <a href='registration.php'>registration</a> again.</p>
-                  </div>";
-        }
-    } else {
-?>
-    <form class="form" action="" method="post">
-        <h1 class="login-title">Registration</h1>
-        <input type="text" class="login-input" name="username" placeholder="Username" required />
-        <input type="text" class="login-input" name="email" placeholder="Email Adress">
-        <input type="password" class="login-input" name="password" placeholder="Password">
-        <input type="submit" name="submit" value="Register" class="login-button">
-        <p class="link"><a href="login.php">Click to Login</a></p>
-    </form>
-<?php
+require 'db.php';
+
+if(isset($_POST["submit"])){
+  $name = $_POST["Name"];
+  $lastname = $_POST["LastName"];
+  $email = $_POST["email"];
+  $password = $_POST["password"];
+//   $confirmation = $_POST["confirmation"];
+  $phone =$_POST["phone"];
+    $query = "INSERT INTO client (first_name, last_name, email ,phone , password ) VALUES('$name','$lastname','$email' , '$phone' ,'$password' )";
+    if(mysqli_query($con, $query)){
+        header("location:login.php");
     }
+    
+}
 ?>
 
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!---- css ----->
+    <link href="signup.css" rel="stylesheet" />
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <title>Sign Up</title>
+</head>
+
+<body>
+    <section class="vh-100 bg-image"
+        `style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');">`
+        <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+            <div class="container h-100">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+                        <div class="card" style="border-radius: 15px;">
+                            <div class="card-body p-5">
+                                <h2 class="text-uppercase text-center mb-5">Create an account</h2>
+
+                                <form action="" method="POST">
+
+                                    <div class="form-outline mb-4">
+                                        <input type="text" id="form3Example1cg" name="Name"
+                                            class="form-control form-control-lg" />
+                                        <label class="form-label" for="form3Example1cg">Your Name</label>
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <input type="text" id="form3Example1cg" name="LastName"
+                                            class="form-control form-control-lg" />
+                                        <label class="form-label" for="form3Example1cg">Your Last Name</label>
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <input type="email" id="form3Example3cg" name="email"
+                                            class="form-control form-control-lg" />
+                                        <label class="form-label" for="form3Example3cg">Your Email</label>
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <input type="password" name="password" id="form3Example4cg"
+                                            class="form-control form-control-lg" />
+                                        <label class="form-label" for="form3Example4cg">Password</label>
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <input type="password" name="confirmation" id="form3Example4cdg"
+                                            class="form-control form-control-lg" />
+                                        <label class="form-label" for="form3Example4cdg">Repeat your password</label>
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <input type="number" id="form3Example3cg" name="phone"
+                                            class="form-control form-control-lg" />
+                                        <label class="form-label" for="form3Example3cg">Your Number</label>
+                                    </div>
+
+                                    <div class="form-check d-flex justify-content-center mb-5">
+                                        <input class="form-check-input me-2" type="checkbox" value=""
+                                            id="form2Example3cg" />
+                                        <label class="form-check-label" for="form2Example3g">
+                                            I agree all statements in <a href="login.php" class="text-body"><u>Terms of
+                                                    service</u></a>
+                                        </label>
+                                    </div>
+
+                                    <div class="d-flex justify-content-center">
+                                        <button type="submit"
+                                            class="btn btn-success btn-block btn-lg gradient-custom-4 text-body"
+                                            name="submit">Register</button>
+                                    </div>
+
+                                    <p class="text-center text-muted mt-5 mb-0">Have already an account?<a
+                                            href="login.php" class="fw-bold text-body"><u>Login here</u></a></p>
+
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
 </body>
+
 </html>

@@ -1,15 +1,12 @@
 <?php
-
-//include auth_session.php file on all user panel pages
-include("auth_session.php");
-echo $_SESSION['username'];
-?>
-<?php
 $msg = "";
+// include("auth_session.php");
+session_start();
 if (isset($_POST['submit'])) {
-  $con = mysqli_connect('localhost', 'Root', '', 'agence');
+  $con = mysqli_connect('localhost', 'Root', '', 'gestions');
   if ($con) {
     // $id = $_POST['id'];
+    $idClient  = $_SESSION['id_client'];
     $titre = $_POST['titre'];
     $description = $_POST['description'];
     $superficie = $_POST['superficie'];
@@ -17,6 +14,7 @@ if (isset($_POST['submit'])) {
     $montant = $_POST['montant'];
     $date = $_POST['date'];
     $type_annonce = $_POST['type_annonce'];
+
     
     $image = $_FILES['image']['name'];
     $tmp_name = $_FILES['image']['tmp_name'];
@@ -25,7 +23,7 @@ if (isset($_POST['submit'])) {
 
     if ($titre != "" && $image != "" && $description != "" && $superficie != "" && $adresse != "" && $montant != "" && $date != "" && $type_annonce != "") {
       // $sql = "insert into annonces(titre,images,description,superficie,adresse,montant,date,type_annonce)values('$titre','$folder','$description','$superficie','$adresse','$montant','$date','$type_annonce')";
-      $sql ="INSERT INTO `annonces` (`id`, `titre`, `description`, `superficie`, `adresse`, `montant`, `date`, `type_annonce`, `images`, `User_id`) VALUES (NULL, '$titre', '$description', '$superficie', '$adresse', '$montant', '$date', '$type_annonce', '$folder', '4' )";
+      $sql = "INSERT INTO annonce(id_client,titre, description, adresse, superficie,type_annonce, prix, date_publication, date_modification) VALUES ('$idClient','$titre','$description','$adresse','$superficie','$type_annonce','$montant',NOW(),NOW())";
       $query = mysqli_query($con, $sql); 
       header("Location: " . $_SERVER['PHP_SELF']);
       exit;
@@ -87,8 +85,8 @@ if (isset($_POST['submit'])) {
       <nav id="navbar" class="navbar">
         <ul>
           <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
-          <li><a class="nav-link scrollto" href="#services">Services</a></li>
           <li><a class="nav-link scrollto" href="login.php">LogIn</a></li>
+          <li><a class="nav-link scrollto" href="#">Logout</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav>
@@ -174,8 +172,8 @@ if (isset($_POST['submit'])) {
 
           <!-- ====================Display data info in card html ===================-->
           <?php
-          $con = mysqli_connect('localhost', 'Root', '', 'agence');
-          $result = mysqli_query($con, 'SELECT * FROM annonces');
+          $con = mysqli_connect('localhost', 'Root', '', 'gestions');
+          $result = mysqli_query($con, 'SELECT * FROM annonce');
           $data = array();
           while ($row = mysqli_fetch_assoc($result)) {
             $data[] = $row;
@@ -189,10 +187,10 @@ if (isset($_POST['submit'])) {
                 <div id="infoModal">
                   <h5 class="modal-title" id="exampleModalLabel"><span>Titre :</span> <?php echo $row['titre']; ?></h5>
                   <p class="card-text"><span>Description :</span> <?php echo $row['description']; ?></p>
-                  <p class="card-text"><span>Montant :</span> <?php echo $row['montant']; ?> <span>DH</span></p>
+                  <p class="card-text"><span>Montant :</span> <?php echo $row['prix']; ?> <span>DH</span></p>
                   <p class="card-text"><span>Type d'annonce :</span> <?php echo $row['type_annonce']; ?></p>
                   <div class="btnmod">
-                    <button type="button" class="modbuttons" class="btn btn-primary" id="<?php echo $row['id']; ?>" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <button type="button" class="modbuttons" class="btn btn-primary" id="<?php echo $row['id_client']; ?>" data-bs-toggle="modal" data-bs-target="#exampleModal">
                       Voir plus
                     </button>
                   </div>
@@ -204,9 +202,9 @@ if (isset($_POST['submit'])) {
           }
           // =================================Delete row===============================
           if (isset($_POST['delete'])) {
-            $con = mysqli_connect('localhost', 'Root', '', 'agence');
+            $con = mysqli_connect('localhost', 'Root', '', 'gestions');
             $id = $_POST['id'];
-            $sql = "DELETE FROM annonces WHERE id=$id";
+            $sql = "DELETE FROM annonce WHERE id_client=$id";
 
             if (mysqli_query($con, $sql)) {
               header("Refresh:0");
@@ -307,7 +305,7 @@ if (isset($_POST['submit'])) {
 
           <?php
           if (isset($_POST['edit'])) {
-            $con = mysqli_connect('localhost', 'Root', '', 'agence');
+            $con = mysqli_connect('localhost', 'Root', '', 'gestions');
             $ids = $_POST['ids'];
             $titres = $_POST['titre'];
             $descriptions = $_POST['description'];
@@ -322,8 +320,8 @@ if (isset($_POST['submit'])) {
             $folder = "assets/img/" . $images;
             move_uploaded_file($tmp_name, $folder);
 
-            $sql = "UPDATE annonces SET titre='$titres', images='$folder' , description='$descriptions', superficie='$superficies', adresse='$adresses', montant='$montants', date='$dates', type_annonce='$type_annonces'
-                WHERE id=$ids";
+            $sql = "UPDATE annonce SET titre='$titres', images='$folder' , description='$descriptions', superficie='$superficies', adresse='$adresses', montant='$montants', date='$dates', type_annonce='$type_annonces'
+                WHERE id_client=$ids";
             if (mysqli_query($con, $sql)) {
               echo "Record updated successfully";
               header("Refresh:0");
