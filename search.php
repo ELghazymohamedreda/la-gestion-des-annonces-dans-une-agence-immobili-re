@@ -84,14 +84,14 @@
 
           <?php
           if (isset($_POST['search'])) {
-            $con = mysqli_connect('localhost', 'Root', '', 'agence');
+            $con = mysqli_connect('localhost', 'Root', '', 'gestions');
             $min_price = $_POST['min'];
             $max_price = $_POST['max'];
             $types = $_POST['type_annoncess'];
 
 
             if ($max_price != '' && $min_price != '') {
-              $query = "SELECT * FROM annonces WHERE montant BETWEEN $min_price AND $max_price";
+              $query = "SELECT * FROM annonce WHERE montant BETWEEN $min_price AND $max_price";
 
               $results = mysqli_query($con, $query);
 
@@ -109,9 +109,9 @@
                     <div id="infoModal">
                       <h5 class="modal-title" id="exampleModalLabel"><span>Titre :</span> <?php echo $row['titre']; ?></h5>
                       <p class="card-text"><span>Description :</span> <?php echo $row['description']; ?></p>
-                      <p class="card-text"><span>Montant :</span> <?php echo $row['montant']; ?> <span>DH</span></p>
+                      <p class="card-text"><span>Montant :</span> <?php echo $row['prix']; ?> <span>DH</span></p>
                       <p class="card-text"><span>Type d'annonce :</span> <?php echo $row['type_annonce']; ?></p>
-                      <button type="button" class="modbuttons" class="btn btn-primary" id="<?php echo $row['id']; ?>" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                      <button type="button" class="modbuttons" class="btn btn-primary" id="<?php echo $row['id_client']; ?>" data-bs-toggle="modal" data-bs-target="#exampleModal">
                         Voir plus
                       </button>
                     </div>
@@ -121,7 +121,7 @@
               }
             }
             if ($max_price != '' && $min_price != '' && $types != '') {
-              $querys = "SELECT * FROM annonces
+              $querys = "SELECT * FROM annonce
               WHERE price BETWEEN $min_price AND $max_price
               AND type_annonce = '$types'";
 
@@ -141,9 +141,9 @@
                     <div id="infoModal">
                       <h5 class="modal-title" id="exampleModalLabel"><span>Titre :</span> <?php echo $row['titre']; ?></h5>
                       <p class="card-text"><span>Description :</span> <?php echo $row['description']; ?></p>
-                      <p class="card-text"><span>Montant :</span> <?php echo $row['montant']; ?> <span>DH</span></p>
+                      <p class="card-text"><span>Montant :</span> <?php echo $row['prix']; ?> <span>DH</span></p>
                       <p class="card-text"><span>Type d'annonce :</span> <?php echo $row['type_annonce']; ?></p>
-                      <button type="button" class="modbuttons" class="btn btn-primary" id="<?php echo $row['id']; ?>" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                      <button type="button" class="modbuttons" class="btn btn-primary" id="<?php echo $row['id_client']; ?>" data-bs-toggle="modal" data-bs-target="#exampleModal">
                         Voir plus
                       </button>
                     </div>
@@ -153,7 +153,7 @@
               }
             }
             if ($types != '') {
-              $queryes = "SELECT * FROM annonces WHERE type_annonce = '$types'";
+              $queryes = "SELECT * FROM annonce WHERE type_annonce = '$types'";
               $results = mysqli_query($con, $queryes);
               while ($row = mysqli_fetch_assoc($results)) {
                 $data = array();
@@ -169,9 +169,9 @@
                     <div id="infoModal">
                       <h5 class="modal-title" id="exampleModalLabel"><span>Titre :</span> <?php echo $row['titre']; ?></h5>
                       <p class="card-text"><span>Description :</span> <?php echo $row['description']; ?></p>
-                      <p class="card-text"><span>Montant :</span> <?php echo $row['montant']; ?> <span>DH</span></p>
+                      <p class="card-text"><span>Montant :</span> <?php echo $row['prix']; ?> <span>DH</span></p>
                       <p class="card-text"><span>Type d'annonce :</span> <?php echo $row['type_annonce']; ?></p>
-                      <button type="button" class="modbuttons" class="btn btn-primary" id="<?php echo $row['id']; ?>" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                      <button type="button" class="modbuttons" class="btn btn-primary" id="<?php echo $row['id_client']; ?>" data-bs-toggle="modal" data-bs-target="#exampleModal">
                          Voir plus
                       </button>
                     </div>
@@ -190,7 +190,7 @@
 
     <?php
     if (isset($_POST['edit'])) {
-      $con = mysqli_connect('localhost', 'Root', '', 'agence');
+      $con = mysqli_connect('localhost', 'Root', '', 'gestions');
       $ids = $_POST['ids'];
       $titres = $_POST['titre'];
       $descriptions = $_POST['description'];
@@ -205,7 +205,7 @@
       $folder = "assets/img/" . $images;
       move_uploaded_file($tmp_name, $folder);
 
-      $sql = "UPDATE annonces SET titre='$titres', images='$folder' , description='$descriptions', superficie='$superficies', adresse='$adresses', montant='$montants', date='$dates', type_annonce='$type_annonces'
+      $sql = "UPDATE annonce SET titre='$titres', images='$folder' , description='$descriptions', superficie='$superficies', adresse='$adresses', montant='$montants', date='$dates', type_annonce='$type_annonces'
                   WHERE id=$ids";
       if (mysqli_query($con, $sql)) {
         echo "Record updated successfully";

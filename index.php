@@ -12,33 +12,43 @@ if (isset($_POST['submit'])) {
     $superficie = $_POST['superficie'];
     $adresse = $_POST['adresse'];
     $montant = $_POST['montant'];
-    $date = $_POST['date'];
     $type_annonce = $_POST['type_annonce'];
 
-    
-    $image = $_FILES['image']['name'];
-    $tmp_name = $_FILES['image']['tmp_name'];
-    $folder = "assets/img/" . $image;
-    move_uploaded_file($tmp_name, $folder);
-
-    if ($titre != "" && $image != "" && $description != "" && $superficie != "" && $adresse != "" && $montant != "" && $date != "" && $type_annonce != "") {
-      // $sql = "insert into annonces(titre,images,description,superficie,adresse,montant,date,type_annonce)values('$titre','$folder','$description','$superficie','$adresse','$montant','$date','$type_annonce')";
-      $sql = "INSERT INTO annonce(id_client,titre, description, adresse, superficie,type_annonce, prix, date_publication, date_modification) VALUES ('$idClient','$titre','$description','$adresse','$superficie','$type_annonce','$montant',NOW(),NOW())";
-      $query = mysqli_query($con, $sql); 
-      header("Location: " . $_SERVER['PHP_SELF']);
-      exit;
-      if ($query) {
-        $msg = "Votre annonce a été ajouter reussir";
-      } else {
-        $msg = "Votre annonce n'a pas été ajouter reussir";
-      }
-    } else {
-      echo "<script>alert('Please enter all information of annonce');</script>";
+    $con = mysqli_connect('localhost', 'Root', '', 'gestions');
+    if ($con->connect_error) {
+      die("Connection failed: " . $con->connect_error);
     }
-  } else {
-    echo "Votre annonce ne peut pas ajouter,s'il vous plait essayez plus tard";
+  
+    $sql = "INSERT INTO annonce(id_client,titre, description, adresse, superficie,type_annonce, prix, date_publication, date_modification) VALUES ('$idClient','$titre','$description','$adresse','$superficie','$type_annonce','$montant',NOW(),NOW())";
+  
+    if ($con->query($sql) === TRUE) {
+      $id_annonce = $con->insert_id;
+  
+      $image = $_FILES['image']['name'];
+      $tmp_name = $_FILES['image']['tmp_name'];
+      $folder = "assets/img/" . $image;
+      $upload_success = move_uploaded_file($tmp_name, $folder);
+      $picturess = "INSERT INTO images(id_annonce,image_path) VALUES ('$id_annonce', '$folder')";
+  
+      
+  
+  
+      if ($con->query($picturess) !== TRUE) {
+        echo "Error: " . $conn->error;
+  
+  
+        die("Error inserting image data.");
+      }
+  
+      header("location:profile.php");
+    } else {
+      die("Error inserting announcement data.");
+    }
+  
+    $conn->close();
   }
-}
+    
+  }
 ?>
 
 
@@ -86,7 +96,7 @@ if (isset($_POST['submit'])) {
         <ul>
           <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
           <li><a class="nav-link scrollto" href="login.php">LogIn</a></li>
-          <li><a class="nav-link scrollto" href="#">Logout</a></li>
+          <li><a class="nav-link scrollto" href="logout.php">Logout</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav>
@@ -172,8 +182,15 @@ if (isset($_POST['submit'])) {
 
           <!-- ====================Display data info in card html ===================-->
           <?php
+
           $con = mysqli_connect('localhost', 'Root', '', 'gestions');
-          $result = mysqli_query($con, 'SELECT * FROM annonce');
+          $idClient  = $_SESSION['id_client'];
+
+
+          $result = mysqli_query($con, "SELECT * FROM annonce WHERE id_client='$idClient'");
+          $row = mysqli_fetch_assoc($result);
+          $results = mysqli_query($con, "SELECT image_path FROM images WHERE id_annonce = '$annonces'");
+          $rows = mysqli_fetch_assoc($results);
           $data = array();
           while ($row = mysqli_fetch_assoc($result)) {
             $data[] = $row;
@@ -181,9 +198,10 @@ if (isset($_POST['submit'])) {
 
             <div class="card" id="cards">
               <div id="modal">
-                <div>
-                  <img class="card-text" src="<?php echo $row['images']; ?>">
-                </div>
+
+                
+                <img src="<?php echo $image; ?>">
+                
                 <div id="infoModal">
                   <h5 class="modal-title" id="exampleModalLabel"><span>Titre :</span> <?php echo $row['titre']; ?></h5>
                   <p class="card-text"><span>Description :</span> <?php echo $row['description']; ?></p>
