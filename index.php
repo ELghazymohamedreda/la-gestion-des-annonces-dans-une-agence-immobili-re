@@ -40,7 +40,7 @@ if (isset($_POST['submit'])) {
         die("Error inserting image data.");
       }
   
-      header("location:profile.php");
+      header("location:index.php");
     } else {
       die("Error inserting announcement data.");
     }
@@ -200,7 +200,7 @@ if (isset($_POST['submit'])) {
               <div id="modal">
 
                 
-                <img src="<?php echo $image; ?>">
+                <img src="<?php echo $annonces; ?>">
                 
                 <div id="infoModal">
                   <h5 class="modal-title" id="exampleModalLabel"><span>Titre :</span> <?php echo $row['titre']; ?></h5>
@@ -262,7 +262,7 @@ if (isset($_POST['submit'])) {
                       <p class="card-text"><span>Description :</span>${selectedData.description}</p>
                       <p class="card-text"><span>Superficie :</span>${selectedData.superficie} <span>m2</span></p>
                       <p class="card-text"><span>Adresse :</span>${selectedData.adresse}</p>
-                      <p class="card-text"><span>Montant :</span>${selectedData.montant} <span>DH</span></p>
+                      <p class="card-text"><span>Montant :</span>${selectedData.prix} <span>DH</span></p>
                       <p class="card-text"><span>Date :</span>${selectedData.date}</p>
                       <p class="card-text"><span>Type d'annonce :</span>${selectedData.type_annonce}</p>
                       <div id="modBtn">
@@ -284,7 +284,7 @@ if (isset($_POST['submit'])) {
                         <label for="adresse">Adresse:</label>
                         <input type="text" class="form-control" id="adresse" name="adresse" value="${selectedData.adresse}"><br><br>
                         <label for="montant">Montant:</label>
-                        <input type="number" class="form-control" id="montant" name="montant" value="${selectedData.montant}"><br><br>
+                        <input type="number" class="form-control" id="montant" name="montant" value="${selectedData.prix}"><br><br>
                         <label for="date">Date:</label>
                         <input type="date" class="form-control" id="date" name="date" value="${selectedData.date}"><br><br>
                         <label for="types">Type d'annonce:</label>
